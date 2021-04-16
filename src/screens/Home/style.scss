@@ -1,0 +1,30 @@
+.home__container {
+    .results__image {
+        position: absolute;
+        top: 347px;
+        left: 400px;
+        width: 800px;
+        height: 500px;
+        .game__images {
+            width: 100%;
+            img {
+                width: 120px;
+            }
+            .rock__img {
+                position: absolute;
+                top: 240px;
+                left: 200px;
+            }
+            .paper__img {
+                position: absolute;
+                top: 240px;
+                left: 350px;
+            }
+            .scissors__img {
+                position: absolute;
+                top: 240px;
+                left: 500px;
+            }
+        }
+    }
+}
