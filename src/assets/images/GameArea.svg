@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="548" height="578" viewBox="0 0 548 578"><defs>
+<style>.a{fill:#fff;}.b{fill:#4c9bde;}.c{fill:#333;font-size:35px;font-family:HelveticaNeue-Bold, Helvetica Neue;font-weight:700;}.d{filter:url(#a);}</style><filter id="a" x="0" y="60" width="548" height="518" filterUnits="userSpaceOnUse"><feOffset dy="3" input="SourceAlpha"/><feGaussianBlur stdDeviation="3" result="b"/><feFlood flood-opacity="0.161"/><feComposite operator="in" in2="b"/><feComposite in="SourceGraphic"/></filter></defs><g transform="translate(-120 -224)"><g class="d" transform="matrix(1, 0, 0, 1, 120, 224)">
+<rect class="a" width="530" height="500" rx="17" transform="translate(9 66)"/></g>
+<text class="c" transform="translate(394 258)"><tspan x="-30.8" y="0">You</tspan></text></g></svg>
