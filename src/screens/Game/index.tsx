@@ -9,13 +9,14 @@ function Game() {
 
     return (
         <div className="game__container">
-            <img src={BodySvg} alt="Body Logo" />
+            {/* <img src={BodySvg} alt="Body Logo" /> */}
             <button onClick={() => void send("PLAY")}>Play rock paper scissor</button>
             <br />
             <p>
                 Action:
                 {state.matches("playing") && "Loading... "}{" "}
                 {state.matches("played") && state.context.playedAction}
+                {state.context.count}
             </p>
         </div>
     );
