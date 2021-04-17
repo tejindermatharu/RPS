@@ -1,5 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import Game from "./screens/Game";
 import Home from "./screens/Home";
 
 const App: React.FC = () => {
@@ -9,6 +10,9 @@ const App: React.FC = () => {
                 <div className="app__body">
                     <div>
                         <Switch>
+                            <Route path="/game">
+                                <Game />
+                            </Route>
                             <Route path="/">
                                 <Home />
                             </Route>
