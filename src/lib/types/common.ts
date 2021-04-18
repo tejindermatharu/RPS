@@ -3,3 +3,9 @@ export enum ROCKPAPERSCISSORS {
     "PAPER" = "PAPER",
     "SCISSORS" = "SCISSORS"
 }
+
+export enum RPC_RESULT {
+    "WIN" = "WIN",
+    "LOST" = "LOST",
+    "DRAW" = "DRAW"
+}

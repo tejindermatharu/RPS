@@ -1,20 +1,53 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
 import {useMachine} from "@xstate/react";
 import {gameMachine} from "../../lib/state-machine/gameMachine";
 import BodySvg from "../../assets/images/Body.svg";
 import Player from "components/Player";
 import ArtificialIntelligence from "components/ArtificialIntelligence";
+import {ROCKPAPERSCISSORS, RPC_RESULT} from "../../lib/types/common";
 import "./style.scss";
 
 interface ILocationState {
-    action: string;
+    action: ROCKPAPERSCISSORS;
+}
+
+const rpcRules = new Map([
+    [ROCKPAPERSCISSORS.ROCK, ROCKPAPERSCISSORS.PAPER],
+    [ROCKPAPERSCISSORS.PAPER, ROCKPAPERSCISSORS.SCISSORS],
+    [ROCKPAPERSCISSORS.SCISSORS, ROCKPAPERSCISSORS.ROCK]
+]);
+
+function getRPCResult(you: ROCKPAPERSCISSORS, ai: ROCKPAPERSCISSORS): RPC_RESULT {
+    const rule = rpcRules.get(you);
+
+    if (you === ai) {
+        return RPC_RESULT.DRAW;
+    }
+
+    if (rule === ai) {
+        return RPC_RESULT.LOST;
+    }
+
+    return RPC_RESULT.WIN;
 }
 
 function Game() {
     const location = useLocation<ILocationState>();
-    const [action, updateAction] = useState<string>(location?.state.action);
+    const [action, updateAction] = useState<ROCKPAPERSCISSORS>(location?.state.action);
+    const [rpcResult, updateResult] = useState<RPC_RESULT>(null);
     const [state, send] = useMachine(gameMachine, {devTools: true});
+
+    useEffect(() => {
+        send("PLAY");
+    }, []);
+
+    useEffect(() => {
+        if (state.context.aiAction !== null) {
+            const result = getRPCResult(action, state.context.aiAction);
+            updateResult(result);
+        }
+    }, [state.context.aiAction]);
 
     return (
         <div className="game__container">
@@ -25,7 +58,8 @@ function Game() {
             <div className="ai__container">
                 <ArtificialIntelligence
                     count={state.context.count}
-                    result={state.context.aiResult}
+                    action={state.context.aiAction}
+                    result={rpcResult}
                 />
             </div>
 
@@ -34,7 +68,7 @@ function Game() {
             <p>
                 Action:
                 {state.matches("playing") && "Loading... "}{" "}
-                {state.matches("played") && state.context.aiResult}
+                {state.matches("played") && state.context.aiAction}
                 {state.context.count}
             </p>
             <span>{action}</span>
