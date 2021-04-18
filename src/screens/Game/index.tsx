@@ -35,7 +35,7 @@ function getRPCResult(you: ROCKPAPERSCISSORS, ai: ROCKPAPERSCISSORS): RPC_RESULT
 function Game() {
     const location = useLocation<ILocationState>();
     const [action, updateAction] = useState<ROCKPAPERSCISSORS>(location?.state.action);
-    const [rpcResult, updateResult] = useState<RPC_RESULT>(null);
+    const [rpcResult, updateResult] = useState<RPC_RESULT>(RPC_RESULT.DEFAULT);
     const [state, send] = useMachine(gameMachine, {devTools: true});
 
     useEffect(() => {
@@ -53,7 +53,7 @@ function Game() {
         <div className="game__container">
             <img src={BodySvg} alt="Body Logo" />
             <div className="you__container">
-                <Player action={action} />
+                <Player action={action} result={rpcResult} />
             </div>
             <div className="ai__container">
                 <ArtificialIntelligence

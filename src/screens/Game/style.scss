@@ -17,5 +17,11 @@
         .a {
             fill: $primary-blue;
         }
+
+        &.LOST__img {
+            .a {
+                fill: red;
+            }
+        }
     }
 }

@@ -16,7 +16,11 @@ function ArtificialIntelligence({count, action, result}: ArtificialIntelligenceP
         <div className="artificatialIntelligence__container">
             <img src={AIGameAreaSvg} alt="Game Area Logo" />
             <div className="count__logo">
-                {action !== null ? <RPCLogo action={action} /> : <CountLogo count={count} />}
+                {action !== null ? (
+                    <RPCLogo action={action} result={result} />
+                ) : (
+                    <CountLogo count={count} />
+                )}
             </div>
         </div>
     );

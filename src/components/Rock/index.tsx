@@ -7,7 +7,7 @@ type RockProps = {
 
 const Rock = ({className}: RockProps) => {
     return (
-        <div className="rock__img rpc__img">
+        <div className={classNames("rock_img rpc__img", className)}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="159.37"

@@ -7,5 +7,6 @@ export enum ROCKPAPERSCISSORS {
 export enum RPC_RESULT {
     "WIN" = "WIN",
     "LOST" = "LOST",
-    "DRAW" = "DRAW"
+    "DRAW" = "DRAW",
+    "DEFAULT" = "DEFAULT"
 }
