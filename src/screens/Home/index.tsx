@@ -10,11 +10,11 @@ import "./style.scss";
 function Home() {
     const history = useHistory();
 
-    const onGameItemClick = () => {
+    const onGameItemClick = (action: string) => {
         history.push({
             pathname: "/game",
             state: {
-                action: "Rock"
+                action: action
             }
         });
     };
@@ -25,13 +25,13 @@ function Home() {
             <div className="results__image">
                 <img src={ResultsLogo} alt="Results Logo" />
                 <div className="game__images">
-                    <div onClick={onGameItemClick} className="rock__img">
+                    <div onClick={() => onGameItemClick("rock")} className="rock__img">
                         <img src={RockLogo} alt="Rock Logo" />
                     </div>
-                    <div onClick={onGameItemClick} className="paper__img">
+                    <div onClick={() => onGameItemClick("paper")} className="paper__img">
                         <img src={PaperLogo} alt="Paper Logo" />
                     </div>
-                    <div onClick={onGameItemClick} className="scissors__img">
+                    <div onClick={() => onGameItemClick("scissors")} className="scissors__img">
                         <img src={ScissorsLogo} alt="Scissors Logo" />
                     </div>
                 </div>

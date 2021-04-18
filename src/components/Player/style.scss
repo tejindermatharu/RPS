@@ -1,0 +1,13 @@
+.player__container {
+    .rps__logo {
+        position: absolute;
+        left: 200px;
+        top: 220px;
+        .paper__img {
+            margin-left: -20px;
+        }
+        .scissors__img {
+            margin-top: -20px;
+        }
+    }
+}
