@@ -5,7 +5,7 @@ type CountLogoProps = {
     count: number;
 };
 
-const CountLogo = ({count}: CountLogoProps) => {
+const CountLogo: React.FC<CountLogoProps> = ({count}: CountLogoProps) => {
     return (
         <div className="count__img rpc__img">
             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="150" viewBox="0 0 100 150">

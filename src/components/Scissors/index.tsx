@@ -5,7 +5,7 @@ type ScissorsProps = {
     className: string;
 };
 
-const Scissors = ({className}: ScissorsProps) => {
+const Scissors: React.FC<ScissorsProps> = ({className}: ScissorsProps) => {
     return (
         <div className={classNames("scissors__img rpc__img", className)}>
             <svg

@@ -1,4 +1,4 @@
-import {Machine, actions, assign, EventObject} from "xstate";
+import {Machine, assign, EventObject} from "xstate";
 import {ROCKPAPERSCISSORS} from "../types/common";
 
 export function aiGenerator<T>(anEnum: T): T[keyof T] {

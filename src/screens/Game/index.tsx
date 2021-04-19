@@ -14,7 +14,7 @@ interface ILocationState {
     action: ROCKPAPERSCISSORS;
 }
 
-function Game() {
+const Game: React.FC = () => {
     const location = useLocation<ILocationState>();
     const [action, updateAction] = useState<ROCKPAPERSCISSORS>(location?.state.action);
     const [rpcResult, updateResult] = useState<GameResult>(
@@ -31,7 +31,7 @@ function Game() {
             const result = getRPCResult(action, state.context.aiAction);
             updateResult(result);
         }
-    }, [state.context.aiAction]);
+    }, [state.context.aiAction, action]);
 
     const playAgain = (action: ROCKPAPERSCISSORS) => {
         updateAction(action);
@@ -66,6 +66,6 @@ function Game() {
             </div>
         </div>
     );
-}
+};
 
 export default Game;

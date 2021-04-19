@@ -8,7 +8,7 @@ import BodySvg from "../../assets/images/Body.svg";
 import {ROCKPAPERSCISSORS} from "src/lib/types/common";
 import "./style.scss";
 
-function Home() {
+const Home: React.FC = () => {
     const history = useHistory();
 
     const onGameItemClick = (action: ROCKPAPERSCISSORS) => {
@@ -48,6 +48,6 @@ function Home() {
             </div>
         </div>
     );
-}
+};
 
 export default Home;

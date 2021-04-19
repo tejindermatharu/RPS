@@ -13,12 +13,12 @@ type ArtificialIntelligenceProps = {
     playedStatus: boolean;
 };
 
-function ArtificialIntelligence({
+const ArtificialIntelligence: React.FC<ArtificialIntelligenceProps> = ({
     count,
     action,
     result,
     playedStatus
-}: ArtificialIntelligenceProps) {
+}: ArtificialIntelligenceProps) => {
     return (
         <div className="artificatialIntelligence__container">
             <img src={AIGameAreaSvg} alt="Game Area Logo" />
@@ -36,6 +36,6 @@ function ArtificialIntelligence({
             </div>
         </div>
     );
-}
+};
 
 export default ArtificialIntelligence;

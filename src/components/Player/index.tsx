@@ -3,9 +3,6 @@ import classNames from "classnames";
 import GameAreaSvg from "../../assets/images/GameArea.svg";
 import RPCLogo from "components/RpcLogo";
 import {ROCKPAPERSCISSORS, RPC_RESULT} from "src/lib/types/common";
-import RockLogo from "../../assets/images/RockCircle.svg";
-import PaperLogo from "../../assets/images/PaperCircle.svg";
-import ScissorsLogo from "../../assets/images/ScissorsCircle.svg";
 import PlayAgain from "components/PlayAgain";
 import "./style.scss";
 

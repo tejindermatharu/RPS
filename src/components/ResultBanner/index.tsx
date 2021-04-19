@@ -1,7 +1,6 @@
 import React from "react";
-import classNames from "classnames";
-import "./style.scss";
 import {RPC_RESULT} from "src/lib/types/common";
+import "./style.scss";
 
 type ResultsBannerProps = {
     result: RPC_RESULT;

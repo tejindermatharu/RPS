@@ -5,7 +5,7 @@ type RockProps = {
     className: string;
 };
 
-const Rock = ({className}: RockProps) => {
+const Rock: React.FC<RockProps> = ({className}: RockProps) => {
     return (
         <div className={classNames("rock_img rpc__img", className)}>
             <svg
