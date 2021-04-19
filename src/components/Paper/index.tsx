@@ -5,7 +5,7 @@ type PaperProps = {
     className: string;
 };
 
-const Paper = ({className}: PaperProps) => {
+const Paper: React.FC<PaperProps> = ({className}: PaperProps) => {
     return (
         <div className={classNames("paper__img rpc__img", className)}>
             <svg
