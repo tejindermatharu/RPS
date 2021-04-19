@@ -4,15 +4,10 @@ npm install
 
 npm start
 
-Configured with:
+To run few selected tests run:
 
--   Typescript
--   Webpack
--   ESLint
--   Prettier
+npm test
 
-TODO's
+With more time I would have:
 
-1. Error Boundaries
-2. Lazy loading bundles
-3. UseMemo, UseCallback
+- Create a more comprehensive test suite. Have added a few tests just to illustrate.
