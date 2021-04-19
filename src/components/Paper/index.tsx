@@ -7,7 +7,7 @@ type PaperProps = {
 
 const Paper = ({className}: PaperProps) => {
     return (
-        <div className={classNames("paper_img rpc__img", className)}>
+        <div className={classNames("paper__img rpc__img", className)}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="182.558"

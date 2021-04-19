@@ -82,7 +82,7 @@ export const gameMachine = Machine<IGameContext, IGameSchema, GameEvent>(
             }),
             startCount3: assign({
                 count: () => 3,
-                aiResult: () => null
+                aiAction: null
             }),
             aiAction: (context, event) => {
                 context.aiAction = aiGenerator(ROCKPAPERSCISSORS);

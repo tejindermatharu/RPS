@@ -10,3 +10,8 @@ export enum RPC_RESULT {
     "DRAW" = "DRAW",
     "DEFAULT" = "DEFAULT"
 }
+
+export type GameResult = {
+    yourResult: RPC_RESULT;
+    aiResult: RPC_RESULT;
+};

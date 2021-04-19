@@ -7,7 +7,7 @@ type ScissorsProps = {
 
 const Scissors = ({className}: ScissorsProps) => {
     return (
-        <div className={classNames("scissors_img rpc__img", className)}>
+        <div className={classNames("scissors__img rpc__img", className)}>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="153.013"

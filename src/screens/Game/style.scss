@@ -1,6 +1,27 @@
 @import "../../variables.scss";
 
 .game__container {
+    .rps__logo {
+        position: absolute;
+        left: 200px;
+        top: 220px;
+
+        &.rps_logo__transition-up {
+            .rpc__img {
+                margin-top: -60px;
+                transition: margin-top 0.5s;
+            }
+        }
+
+        .paper__img {
+            margin-left: -20px;
+            margin-top: -20px;
+        }
+        .scissors__img {
+            margin-top: -20px;
+        }
+    }
+
     .you__container {
         position: absolute;
         top: 281px;
@@ -14,13 +35,29 @@
     }
 
     .rpc__img {
+        &.paper_img {
+            top: 180px;
+        }
+
         .a {
             fill: $primary-blue;
         }
 
         &.LOST__img {
             .a {
-                fill: red;
+                fill: $primary-red;
+            }
+        }
+
+        &.WIN__img {
+            .a {
+                fill: $primary-green;
+            }
+        }
+
+        &.DRAW__img {
+            .a {
+                fill: $primary-grey;
             }
         }
     }

@@ -5,37 +5,21 @@ import {gameMachine} from "../../lib/state-machine/gameMachine";
 import BodySvg from "../../assets/images/Body.svg";
 import Player from "components/Player";
 import ArtificialIntelligence from "components/ArtificialIntelligence";
-import {ROCKPAPERSCISSORS, RPC_RESULT} from "../../lib/types/common";
+import {GameResult, ROCKPAPERSCISSORS, RPC_RESULT} from "../../lib/types/common";
+import {createGameResult, getRPCResult} from "src/lib/helpers/gameHelper";
+import ResultsBanner from "components/ResultBanner";
 import "./style.scss";
 
 interface ILocationState {
     action: ROCKPAPERSCISSORS;
 }
 
-const rpcRules = new Map([
-    [ROCKPAPERSCISSORS.ROCK, ROCKPAPERSCISSORS.PAPER],
-    [ROCKPAPERSCISSORS.PAPER, ROCKPAPERSCISSORS.SCISSORS],
-    [ROCKPAPERSCISSORS.SCISSORS, ROCKPAPERSCISSORS.ROCK]
-]);
-
-function getRPCResult(you: ROCKPAPERSCISSORS, ai: ROCKPAPERSCISSORS): RPC_RESULT {
-    const rule = rpcRules.get(you);
-
-    if (you === ai) {
-        return RPC_RESULT.DRAW;
-    }
-
-    if (rule === ai) {
-        return RPC_RESULT.LOST;
-    }
-
-    return RPC_RESULT.WIN;
-}
-
 function Game() {
     const location = useLocation<ILocationState>();
     const [action, updateAction] = useState<ROCKPAPERSCISSORS>(location?.state.action);
-    const [rpcResult, updateResult] = useState<RPC_RESULT>(RPC_RESULT.DEFAULT);
+    const [rpcResult, updateResult] = useState<GameResult>(
+        createGameResult(RPC_RESULT.DEFAULT, RPC_RESULT.DEFAULT)
+    );
     const [state, send] = useMachine(gameMachine, {devTools: true});
 
     useEffect(() => {
@@ -49,29 +33,37 @@ function Game() {
         }
     }, [state.context.aiAction]);
 
+    const playAgain = (action: ROCKPAPERSCISSORS) => {
+        updateAction(action);
+        updateResult(createGameResult(RPC_RESULT.DEFAULT, RPC_RESULT.DEFAULT));
+        send("PLAY");
+    };
+
     return (
         <div className="game__container">
             <img src={BodySvg} alt="Body Logo" />
             <div className="you__container">
-                <Player action={action} result={rpcResult} />
+                <Player
+                    action={action}
+                    result={rpcResult.yourResult}
+                    playAgain={playAgain}
+                    playedStatus={state.matches("played")}
+                />
             </div>
             <div className="ai__container">
                 <ArtificialIntelligence
                     count={state.context.count}
                     action={state.context.aiAction}
-                    result={rpcResult}
+                    result={rpcResult.aiResult}
+                    playedStatus={state.matches("played")}
                 />
             </div>
-
-            <button onClick={() => void send("PLAY")}>Play rock paper scissor</button>
-            <br />
-            <p>
-                Action:
-                {state.matches("playing") && "Loading... "}{" "}
-                {state.matches("played") && state.context.aiAction}
-                {state.context.count}
-            </p>
-            <span>{action}</span>
+            <div>
+                <ResultsBanner
+                    result={rpcResult.yourResult}
+                    playedStatus={state.matches("played")}
+                />
+            </div>
         </div>
     );
 }
