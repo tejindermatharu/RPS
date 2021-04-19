@@ -1,4 +1,4 @@
-import {Machine, actions, assign} from "xstate";
+import {Machine, actions, assign, EventObject} from "xstate";
 import {ROCKPAPERSCISSORS} from "../types/common";
 
 export function aiGenerator<T>(anEnum: T): T[keyof T] {
@@ -8,7 +8,7 @@ export function aiGenerator<T>(anEnum: T): T[keyof T] {
     return value;
 }
 
-interface IGameSchema {
+export interface IGameSchema extends EventObject {
     states: {
         idle: Record<string, unknown>;
         playing: Record<string, unknown>;
@@ -19,15 +19,16 @@ interface IGameSchema {
     };
 }
 
-interface IGameContext {
+export interface IGameContext {
     aiAction?: ROCKPAPERSCISSORS;
     count: number;
 }
 
-type GameEvent = {type: "PLAY"};
-const {log} = actions;
+export interface IGameEvent {
+    type: "PLAY";
+}
 
-export const gameMachine = Machine<IGameContext, IGameSchema, GameEvent>(
+export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
     {
         id: "player",
         initial: "idle",
@@ -74,17 +75,17 @@ export const gameMachine = Machine<IGameContext, IGameSchema, GameEvent>(
     },
     {
         actions: {
-            startCount1: assign({
+            startCount1: assign<IGameContext>({
                 count: () => 1
             }),
-            startCount2: assign({
+            startCount2: assign<IGameContext>({
                 count: () => 2
             }),
-            startCount3: assign({
+            startCount3: assign<IGameContext>({
                 count: () => 3,
                 aiAction: null
             }),
-            aiAction: (context, event) => {
+            aiAction: (context) => {
                 context.aiAction = aiGenerator(ROCKPAPERSCISSORS);
             }
         }

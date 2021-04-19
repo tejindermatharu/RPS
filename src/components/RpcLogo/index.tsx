@@ -1,8 +1,8 @@
 import React from "react";
-import Paper from "components/Paper";
-import Rock from "components/Rock";
-import Scissors from "components/Scissors";
-import {ROCKPAPERSCISSORS, RPC_RESULT} from "src/lib/types/common";
+import Paper from "../../components/Paper";
+import Rock from "../../components/Rock";
+import Scissors from "../../components/Scissors";
+import {ROCKPAPERSCISSORS, RPC_RESULT} from "../../lib/types/common";
 
 type RPCLogoProps = {
     action: ROCKPAPERSCISSORS;
