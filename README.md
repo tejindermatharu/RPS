@@ -4,15 +4,20 @@ npm install
 
 npm start
 
-Configured with:
+To run few selected tests run:
 
--   Typescript
--   Webpack
--   ESLint
--   Prettier
+npm test
 
-TODO's
+With more time I would have:
 
-1. Error Boundaries
-2. Lazy loading bundles
-3. UseMemo, UseCallback
+- Create a more comprehensive unit test suite. Have added a few tests just to illustrate.
+- Added the totals section (i.e. total losses and wins).
+- More attention to the animation transitions.
+- Fixing up Slight flicker when first starting a game.
+- More attention to the text fonts, that might not be as per spec.
+- More attention to exact pixel positioning and lengths/sizes as per spec.
+- Clean up some warnings.
+
+Design considerations
+
+- Did not feel the need to use Redux or Context Api on a project this small...have kept prop drilling to a minimum.
