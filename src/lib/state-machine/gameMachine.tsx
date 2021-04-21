@@ -11,11 +11,10 @@ export function aiGenerator<T>(anEnum: T): T[keyof T] {
 export interface IGameSchema extends EventObject {
     states: {
         idle: Record<string, unknown>;
-        playing: Record<string, unknown>;
+        start: Record<string, unknown>;
         played: Record<string, unknown>;
-        count2: Record<string, unknown>;
-        count1: Record<string, unknown>;
         startAI: Record<string, unknown>;
+        counting: Record<string, unknown>;
     };
 }
 
@@ -28,36 +27,48 @@ export interface IGameEvent {
     type: "PLAY";
 }
 
+const guards = {
+    canCountDown: (context) => !guards.countedDown(context),
+    countedDown: (context) => context.count === 0
+};
+
+const COUNTDOWN = 5;
+
 export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
     {
         id: "player",
         initial: "idle",
         context: {
             aiAction: null,
-            count: 3
+            count: COUNTDOWN
         },
         states: {
             idle: {
                 on: {
-                    PLAY: "playing"
+                    PLAY: "start"
                 }
             },
-            playing: {
-                entry: ["startCount3"],
-                after: {
-                    1000: "count2"
+            start: {
+                entry: ["reset"],
+                on: {
+                    "": {
+                        target: "counting"
+                    }
                 }
             },
-            count2: {
-                entry: ["startCount2"],
+            counting: {
                 after: {
-                    1000: "count1"
-                }
-            },
-            count1: {
-                entry: ["startCount1"],
-                after: {
-                    1000: "startAI"
+                    1000: {
+                        target: "counting",
+                        actions: "countdown",
+                        cond: "canCountDown"
+                    }
+                },
+                on: {
+                    "": {
+                        target: "startAI",
+                        cond: "countedDown"
+                    }
                 }
             },
             startAI: {
@@ -68,21 +79,17 @@ export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
             },
             played: {
                 on: {
-                    PLAY: "playing"
+                    PLAY: "start"
                 }
             }
         }
     },
     {
+        guards,
         actions: {
-            startCount1: assign<IGameContext>({
-                count: () => 1
-            }),
-            startCount2: assign<IGameContext>({
-                count: () => 2
-            }),
-            startCount3: assign<IGameContext>({
-                count: () => 3,
+            countdown: assign({count: (context) => context.count - 1}),
+            reset: assign<IGameContext>({
+                count: () => COUNTDOWN,
                 aiAction: null
             }),
             aiAction: (context) => {

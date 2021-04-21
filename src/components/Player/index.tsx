@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import classNames from "classnames";
 import GameAreaSvg from "../../assets/images/GameArea.svg";
 import RPCLogo from "components/RpcLogo";
@@ -14,6 +14,12 @@ type PlayerProps = {
 };
 
 function Player({action, result, playedStatus, playAgain}: PlayerProps) {
+    const [isChildMounted, updateIsChildMounted] = useState<boolean>(false);
+
+    useEffect(() => {
+        updateIsChildMounted(true);
+    }, []);
+
     return (
         <div className="player__container">
             <img src={GameAreaSvg} alt="You Logo" />
@@ -23,7 +29,7 @@ function Player({action, result, playedStatus, playAgain}: PlayerProps) {
                     playedStatus === true ? "rps_logo__transition-up" : ""
                 )}
             >
-                <RPCLogo action={action} result={result} />
+                {isChildMounted === true && <RPCLogo action={action} result={result} />}
             </div>
             {playedStatus === true && (
                 <div className="replay__container">

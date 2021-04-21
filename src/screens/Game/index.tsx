@@ -14,6 +14,8 @@ interface ILocationState {
     action: ROCKPAPERSCISSORS;
 }
 
+const MemoizedResultsBanner = React.memo(ResultsBanner);
+
 const Game: React.FC = () => {
     const location = useLocation<ILocationState>();
     const [action, updateAction] = useState<ROCKPAPERSCISSORS>(location?.state.action);
@@ -59,7 +61,7 @@ const Game: React.FC = () => {
                 />
             </div>
             <div>
-                <ResultsBanner
+                <MemoizedResultsBanner
                     result={rpcResult.yourResult}
                     playedStatus={state.matches("played")}
                 />
