@@ -25,6 +25,7 @@ export interface IGameContext {
 
 export interface IGameEvent {
     type: "PLAY";
+    data?: {count: number};
 }
 
 const guards = {
@@ -32,7 +33,7 @@ const guards = {
     countedDown: (context) => context.count === 0
 };
 
-const COUNTDOWN = 5;
+const COUNTDOWN_DEFAULT = 5;
 
 export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
     {
@@ -40,12 +41,15 @@ export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
         initial: "idle",
         context: {
             aiAction: null,
-            count: COUNTDOWN
+            count: COUNTDOWN_DEFAULT
         },
         states: {
             idle: {
                 on: {
-                    PLAY: "start"
+                    PLAY: {
+                        target: "start",
+                        actions: ["reset"]
+                    }
                 }
             },
             start: {
@@ -58,17 +62,17 @@ export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
             },
             counting: {
                 after: {
-                    1000: {
-                        target: "counting",
-                        actions: "countdown",
-                        cond: "canCountDown"
-                    }
-                },
-                on: {
-                    "": {
-                        target: "startAI",
-                        cond: "countedDown"
-                    }
+                    1000: [
+                        {
+                            target: "counting",
+                            actions: "countdown",
+                            cond: "canCountDown"
+                        },
+                        {
+                            target: "startAI",
+                            cond: "countedDown"
+                        }
+                    ]
                 }
             },
             startAI: {
@@ -79,7 +83,10 @@ export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
             },
             played: {
                 on: {
-                    PLAY: "start"
+                    PLAY: {
+                        target: "start",
+                        actions: ["reset"]
+                    }
                 }
             }
         }
@@ -88,9 +95,9 @@ export const gameMachine = Machine<IGameContext, IGameSchema, IGameEvent>(
         guards,
         actions: {
             countdown: assign({count: (context) => context.count - 1}),
-            reset: assign<IGameContext>({
-                count: () => COUNTDOWN,
-                aiAction: null
+            reset: assign({
+                count: (context, event) => event?.data?.count ?? COUNTDOWN_DEFAULT,
+                aiAction: (context) => null
             }),
             aiAction: (context) => {
                 context.aiAction = aiGenerator(ROCKPAPERSCISSORS);

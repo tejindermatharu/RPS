@@ -14,27 +14,31 @@ type PlayerProps = {
 };
 
 function Player({action, result, playedStatus, playAgain}: PlayerProps) {
-    const [isChildMounted, updateIsChildMounted] = useState<boolean>(false);
+    const [isMounted, updateisMounted] = useState<boolean>(false);
 
     useEffect(() => {
-        updateIsChildMounted(true);
+        updateisMounted(true);
     }, []);
 
     return (
         <div className="player__container">
             <img src={GameAreaSvg} alt="You Logo" />
-            <div
-                className={classNames(
-                    "rps__logo",
-                    playedStatus === true ? "rps_logo__transition-up" : ""
-                )}
-            >
-                {isChildMounted === true && <RPCLogo action={action} result={result} />}
-            </div>
-            {playedStatus === true && (
-                <div className="replay__container">
-                    <PlayAgain playAgain={playAgain} />
-                </div>
+            {isMounted === true && (
+                <React.Fragment>
+                    <div
+                        className={classNames(
+                            "rps__logo",
+                            playedStatus === true ? "rps_logo__transition-up" : ""
+                        )}
+                    >
+                        <RPCLogo action={action} result={result} />
+                    </div>
+                    {playedStatus === true && (
+                        <div className="replay__container">
+                            <PlayAgain playAgain={playAgain} />
+                        </div>
+                    )}
+                </React.Fragment>
             )}
         </div>
     );

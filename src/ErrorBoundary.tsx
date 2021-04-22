@@ -4,7 +4,10 @@ type ErrorBoundaryState = {
     hasError: boolean;
 };
 
-export default class ErrorBoundary extends React.Component<{}, ErrorBoundaryState> {
+export default class ErrorBoundary extends React.Component<
+    Record<string, unknown>,
+    ErrorBoundaryState
+> {
     constructor(props) {
         super(props);
         this.state = {hasError: false};

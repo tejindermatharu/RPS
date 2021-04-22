@@ -16,6 +16,8 @@ interface ILocationState {
 
 const MemoizedResultsBanner = React.memo(ResultsBanner);
 
+const COUNT = 4;
+
 const Game: React.FC = () => {
     const location = useLocation<ILocationState>();
     const [action, updateAction] = useState<ROCKPAPERSCISSORS>(location?.state.action);
@@ -25,7 +27,7 @@ const Game: React.FC = () => {
     const [state, send] = useMachine(gameMachine, {devTools: true});
 
     useEffect(() => {
-        send("PLAY");
+        send({type: "PLAY", data: {count: COUNT}});
     }, []);
 
     useEffect(() => {
@@ -38,7 +40,7 @@ const Game: React.FC = () => {
     const playAgain = (action: ROCKPAPERSCISSORS) => {
         updateAction(action);
         updateResult(createGameResult(RPC_RESULT.DEFAULT, RPC_RESULT.DEFAULT));
-        send("PLAY");
+        send({type: "PLAY", data: {count: COUNT}});
     };
 
     return (
